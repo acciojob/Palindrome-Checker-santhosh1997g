@@ -1,14 +1,22 @@
-// complete the given function
 
-function palindrome(str){
-    var len = str.length;
-    for(var i=0; i<len ; i++){
-        if(str[i] != str[len-1-i]){
-            return false;
-        }
-      else 
-      return true;
-    }
 
-}
-module.exports = palindrome
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser')
+
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+const isPalindrome = require('./script');
+
+app.use(express.static(__dirname))
+
+app.post('/palindromechecker',(req, res) => {
+  const str = req.body.str
+  const answer = isPalindrome(str) 
+  res.send({message:answer})
+})
+
+module.exports = app;
