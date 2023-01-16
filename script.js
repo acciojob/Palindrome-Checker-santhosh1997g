@@ -1,22 +1,22 @@
+// complete the given function
 
-
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser')
-
-const app = express();
-
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-const isPalindrome = require('./script');
-
-app.use(express.static(__dirname))
-
-app.post('/palindromechecker',(req, res) => {
-  const str = req.body.str
-  const answer = isPalindrome(str) 
-  res.send({message:answer})
-})
-
-module.exports = app;
+function palindrome(str){
+	str = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+	if(str.length == 0){
+		return true
+	}else{
+		let i = 0
+	let j = str.length - 1
+	while(i<j){
+		if(str[i] != str[j]){
+			return false
+		}else{
+			i++;
+			j--;
+		}
+	}
+	return true
+	}
+	
+}
+module.exports = palindrome
